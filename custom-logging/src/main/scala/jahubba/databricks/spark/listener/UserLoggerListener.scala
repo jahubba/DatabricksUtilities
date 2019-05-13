@@ -8,7 +8,6 @@ class UserLoggerSparkListener extends SparkListener {
   private val logger = LoggerFactory.getLogger("UserActivity")
   
   override def onJobStart(jobStart: SparkListenerJobStart) {
-    val applicationId = SparkSession.active.sparkContext.applicationId
-    logger.info(s"Job ${jobStart.jobId} started by ${jobStart.properties.get("user")} with stages ${jobStart.stageIds.mkString(",")} and appId ${applicationId}")
+    logger.info(s"Job ${jobStart.jobId} started by ${jobStart.properties.get("user")} with stages ${jobStart.stageIds.mkString(",")} and appId ${jobStart.properties.get("spark.app.id")}")
   }
 }
